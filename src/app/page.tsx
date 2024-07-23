@@ -6,7 +6,7 @@ import Stories from "@/components/Stories";
 
 const Homepage = () => {
   return (
-    <div className="flex gap-6 pt-3">
+    <div className="flex gap-6 pt-5">
       <div className="hidden xl:block w-[20%]">
         <LeftMenu type="home" />
       </div>

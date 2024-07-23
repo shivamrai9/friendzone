@@ -1,65 +1,139 @@
+"use client";
+
 
 import Image from "next/image";
-import Link from "next/link";
-import UpdateUser from "./UpdateUser";
-import UserInfoCardInteraction from "./UserInfoCardInteraction";
+import { useState } from "react";
+import UpdateButton from "./UpdateButton";
 
-const UserInfoCard = async () => {
+const UpdateUser = () => {
+  const [open, setOpen] = useState(false);
 
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
-    <div className="p-4 bg-white rounded-lg shadow-md text-sm flex flex-col gap-4">
-      {/* TOP */}
-      <div className="flex justify-between items-center font-medium">
-        <span className="text-gray-500">User Information</span>
-          <UpdateUser />
-          <Link href="/" className="text-blue-500 text-xs">
-            See all
-          </Link>
-      </div>
-      {/* BOTTOM */}
-      <div className="flex flex-col gap-4 text-gray-500">
-        <div className="flex items-center gap-2">
-          <span className="text-xl text-black">
-            {" "}
-            shivam rai
-          </span>
-          <span className="text-sm">@shivamrai</span>
-        </div><p>shivam rai profile</p>
-          <div className="flex items-center gap-2">
-            <Image src="/map.png" alt="" width={16} height={16} />
-            <span>
-              Living in <b>india</b>
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Image src="/school.png" alt="" width={16} height={16} />
-            <span>
-              Went to <b>jjlptschool</b>
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Image src="/work.png" alt="" width={16} height={16} />
-            <span>
-              Works at <b>Unischool soultions</b>
-            </span>
-          </div>
-        <div className="flex items-center justify-between">
-            <div className="flex gap-1 items-center">
-              <Image src="/link.png" alt="" width={16} height={16} />
-              <Link href="/" className="text-blue-500 font-medium">
-              unischool.com
-              </Link>
+    <div className="">
+      <span
+        className="text-blue-500 text-xs cursor-pointer"
+        onClick={() => setOpen(true)}
+      >
+        Update
+      </span>
+      {open && (
+        <div className="absolute w-screen h-screen top-0 left-0 bg-black bg-opacity-65 flex items-center justify-center z-50 ">
+          <form
+            className="p-12 bg-white rounded-lg shadow-md flex flex-col gap-2 w-full md:w-1/2 xl:w-1/3 relative"
+          >
+            {/* TITLE */}
+            <h1>Update Profile</h1>
+            <div className="mt-4 text-xs text-gray-500">
+              Use the navbar profile to change the avatar or username.
             </div>
-          <div className="flex gap-1 items-center">
-            <Image src="/date.png" alt="" width={16} height={16} />
-            <span>Joined 22-07-2024</span>
-          </div>
+            {/* COVER PIC UPLOAD */}
+
+            {/* WRAPPER */}
+            <div className="flex flex-wrap justify-between gap-2 xl:gap-4">
+              {/* INPUT */}
+              <div className="flex flex-col gap-4">
+                <label htmlFor="" className="text-xs text-gray-500">
+                  First Name
+                </label>
+                <input
+                  type="text"
+                  placeholder={"John"}
+                  className="ring-1 ring-gray-300 p-[13px] rounded-md text-sm"
+                  name="name"
+                />
+              </div>
+              <div className="flex flex-col gap-4">
+                <label htmlFor="" className="text-xs text-gray-500">
+                  Surname
+                </label>
+                <input
+                  type="text"
+                  placeholder={"Doe"}
+                  className="ring-1 ring-gray-300 p-[13px] rounded-md text-sm"
+                  name="surname"
+                />
+              </div>
+              {/* INPUT */}
+              <div className="flex flex-col gap-4">
+                <label htmlFor="" className="text-xs text-gray-500">
+                  Description
+                </label>
+                <input
+                  type="text"
+                  placeholder={"Life is beautiful..."}
+                  className="ring-1 ring-gray-300 p-[13px] rounded-md text-sm"
+                  name="description"
+                />
+              </div>
+              {/* INPUT */}
+              <div className="flex flex-col gap-4">
+                <label htmlFor="" className="text-xs text-gray-500">
+                  City
+                </label>
+                <input
+                  type="text"
+                  placeholder={"New York"}
+                  className="ring-1 ring-gray-300 p-[13px] rounded-md text-sm"
+                  name="city"
+                />
+              </div>
+              {/* INPUT */}
+
+              <div className="flex flex-col gap-4">
+                <label htmlFor="" className="text-xs text-gray-500">
+                  School
+                </label>
+                <input
+                  type="text"
+                  placeholder={"MIT"}
+                  className="ring-1 ring-gray-300 p-[13px] rounded-md text-sm"
+                  name="school"
+                />
+              </div>
+              {/* INPUT */}
+
+              <div className="flex flex-col gap-4">
+                <label htmlFor="" className="text-xs text-gray-500">
+                  Work
+                </label>
+                <input
+                  type="text"
+                  placeholder={"Apple Inc."}
+                  className="ring-1 ring-gray-300 p-[13px] rounded-md text-sm"
+                  name="work"
+                />
+              </div>
+              {/* INPUT */}
+
+              <div className="flex flex-col gap-4">
+                <label htmlFor="" className="text-xs text-gray-500">
+                  Website
+                </label>
+                <input
+                  type="text"
+                  placeholder={"lama.dev"}
+                  className="ring-1 ring-gray-300 p-[13px] rounded-md text-sm"
+                  name="website"
+                />
+              </div>
+            </div>
+            <UpdateButton/>
+              <span className="text-green-500">Profile has been updated!</span>
+              <span className="text-red-500">Something went wrong!</span>
+            <div
+              className="absolute text-xl right-2 top-3 cursor-pointer"
+              onClick={handleClose}
+            >
+              X
+            </div>
+          </form>
         </div>
-          <UserInfoCardInteraction
-          />
-      </div>
+      )}
     </div>
   );
 };
 
-export default UserInfoCard;
+export default UpdateUser;

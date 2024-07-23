@@ -1,5 +1,7 @@
 
 import Image from "next/image";
+import Link from "next/link";
+import UpdateUser from "./UpdateUser";
 
 const UserInfoCard = async () => {
   return (
@@ -7,6 +9,10 @@ const UserInfoCard = async () => {
       {/* TOP */}
       <div className="flex justify-between items-center font-medium">
         <span className="text-gray-500">User Information</span>
+        <UpdateUser />
+        <Link href="/" className="text-blue-500 text-xs">
+            See all
+          </Link>
       </div>
       {/* BOTTOM */}
       <div className="flex flex-col gap-4 text-gray-500">
