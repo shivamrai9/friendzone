@@ -1,14 +1,32 @@
-"use client";
+// "use client";
 import Image from "next/image";
 import AddPostButton from "./AddPostButton";
+import prisma from "@/lib/client";
+import { auth } from "@clerk/nextjs/server";
 
 const AddPost = () => {
+  const   {userId } = auth()
+  console.log(userId)
 
+  const tryAction = async (formData: FormData) =>{
+    "use server"
+    // const desc = formData.get("desc") as string;
+    // try{
+    //   prisma.post.create({
+    //     data:{
+    //       userId:"1",
+    //       desc: desc
+    //     }
+    //   })
+    // }catch(err){
+    //   console.log(err)
+    // }
+  }
   return (
     <div className="p-4 bg-white shadow-md rounded-lg flex gap-4 justify-between text-sm">
       {/* AVATAR */}
       <Image
-        src="/noAvatar.png"
+        src="https://images.pexels.com/photos/3042160/pexels-photo-3042160.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
         alt=""
         width={48}
         height={48}
@@ -17,10 +35,10 @@ const AddPost = () => {
       {/* POST */}
       <div className="flex-1">
         {/* TEXT INPUT */}
-        <form  className="flex gap-4">
+        <form action={tryAction}  className="flex gap-4">
           <textarea
             placeholder="What's on your mind?"
-            className="flex-1 bg-slate-100 rounded-lg p-2"
+            className="flex-1 bg-primary-light rounded-lg p-2"
             name="desc"
           ></textarea>
           <div className="">
@@ -31,7 +49,7 @@ const AddPost = () => {
               height={20}
               className="w-5 h-5 cursor-pointer self-end"
             />
-            <AddPostButton />
+            {/* <AddPostButton /> */}
           </div>
         </form>
         {/* POST OPTIONS */}

@@ -6,13 +6,13 @@ const ProfileCard = async () => {
         <div className="p-4 bg-white rounded-lg shadow-md text-sm flex flex-col gap-6">
             <div className="h-20 relative">
                 <Image
-                    src={"/noAvatar.png"}
+                    src={"https://images.pexels.com/photos/3591354/pexels-photo-3591354.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}
                     alt=""
                     fill
                     className="rounded-md object-cover"
                 />
                 <Image
-                    src={"/noAvatar.png"}
+                    src={"https://images.pexels.com/photos/3042160/pexels-photo-3042160.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}
                     alt=""
                     width={48}
                     height={48}
@@ -26,7 +26,7 @@ const ProfileCard = async () => {
                 <div className="flex items-center gap-4">
                     <div className="flex">
                         <Image
-                            src=""
+                            src="https://images.pexels.com/photos/3042160/pexels-photo-3042160.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                             alt=""
                             width={12}
                             height={12}
@@ -38,7 +38,7 @@ const ProfileCard = async () => {
                     </span>
                 </div>
                 <Link href={`/profile/`}>
-                    <button className="bg-blue-500 text-white text-xs p-2 rounded-md">
+                    <button className="bg-green-500 text-white text-xs p-2 rounded-md">
                         My Profile
                     </button>
                 </Link>

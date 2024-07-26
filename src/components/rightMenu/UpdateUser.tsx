@@ -14,7 +14,7 @@ const UpdateUser = () => {
   return (
     <div className="">
       <span
-        className="text-blue-500 text-xs cursor-pointer"
+        className="text-green-500 text-xs cursor-pointer"
         onClick={() => setOpen(true)}
       >
         Update

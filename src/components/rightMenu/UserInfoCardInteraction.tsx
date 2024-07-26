@@ -4,7 +4,7 @@ const UserInfoCardInteraction = () => {
   return (
     <>
       <form >
-        <button className="w-full bg-blue-500 text-white text-sm rounded-md p-2">
+        <button className="w-full bg-green-500 text-white text-sm rounded-md p-2">
           following
         </button>
       </form>

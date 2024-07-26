@@ -7,7 +7,7 @@ const UserMediaCard = async () => {
       {/* TOP */}
       <div className="flex justify-between items-center font-medium">
         <span className="text-gray-500">User Media</span>
-        <Link href="/" className="text-blue-500 text-xs">
+        <Link href="/" className="text-green-500 text-xs">
           See all
         </Link>
       </div>
@@ -15,7 +15,7 @@ const UserMediaCard = async () => {
       <div className="flex gap-4 justify-between flex-wrap">
               <div className="relative w-1/5 h-24" >
                 <Image
-                  src=""
+                  src="https://images.pexels.com/photos/7466986/pexels-photo-7466986.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                   alt=""
                   fill
                   className="object-cover rounded-md"

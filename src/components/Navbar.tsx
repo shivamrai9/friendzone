@@ -14,41 +14,31 @@ const Navbar = () => {
     <div className="h-14 flex items-center justify-between ">
       {/* LEFT */}
       <div className="md:hidden lg:block w-[20%]">
-        <Link href="/" className="font-bold text-xl text-blue-500">
-          unischool
+        <Link href="/" className="font-bold text-xl text-white">
+        FriendZone
         </Link>
       </div>
       {/* CENTER */}
       <div className="hidden md:flex w-[50%] text-sm items-center justify-between">
         {/* LINKS */}
         <div className="flex gap-6 text-gray-600">
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2 text-white">
             <Image
               src="/home.png"
               alt="Homepage"
               width={16}
               height={16}
-              className="w-4 h-4"
+              className="w-5 h-5"
             />
             <span>Homepage</span>
           </Link>
-          <Link href="/" className="flex items-center gap-2">
-            <Image
-              src="/friends.png"
-              alt="Friends"
-              width={16}
-              height={16}
-              className="w-4 h-4"
-            />
-            <span>Friends</span>
-          </Link>
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2 text-white">
             <Image
               src="/stories.png"
               alt="Stories"
               width={16}
               height={16}
-              className="w-4 h-4"
+              className="w-5 h-5"
             />
             <span>Stories</span>
           </Link>
@@ -65,14 +55,11 @@ const Navbar = () => {
         </ClerkLoading>
         <ClerkLoaded>
           <SignedIn>
-            <div className="cursor-pointer">
+            <div className="cursor-pointer ">
               <Image src="/people.png" alt="" width={24} height={24} />
             </div>
             <div className="cursor-pointer">
-              <Image src="/messages.png" alt="" width={20} height={20} />
-            </div>
-            <div className="cursor-pointer">
-              <Image src="/notifications.png" alt="" width={20} height={20} />
+              <Image src="/notifications.png" alt="" width={25} height={25} />
             </div>
             <UserButton />
           </SignedIn>

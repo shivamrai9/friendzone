@@ -10,7 +10,7 @@ const FriendRequestList = () => {
         <div className="flex items-center justify-between" >
           <div className="flex items-center gap-4">
             <Image
-              src={"/noAvatar.png"}
+              src={"https://images.pexels.com/photos/27297269/pexels-photo-27297269/free-photo-of-three-white-daisies-are-shown-against-a-blue-sky.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}
               alt=""
               width={40}
               height={40}

@@ -14,7 +14,7 @@ const CommentList = () => {
             className="w-8 h-8 rounded-full"
           />
           <form
-            className="flex-1 flex items-center justify-between bg-slate-100 rounded-xl text-sm px-6 py-2 w-full"
+            className="flex-1 flex items-center justify-between bg-primary-light rounded-xl text-sm px-6 py-2 w-full"
           >
             <input
               type="text"
