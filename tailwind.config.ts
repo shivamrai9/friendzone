@@ -6,9 +6,16 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
+        transitionProperty: {
+          'colors-duration': 'color, background-color',
+        },
+        transitionDuration: {
+          '300': '300ms',
+        },
         primary: {
           light: '#d4f5e7', // light green
           DEFAULT: '#34d399', // primary green

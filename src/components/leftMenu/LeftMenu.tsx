@@ -56,7 +56,7 @@ const LeftMenu = ({ type }: { type: "home" | "profile" }) => {
         </Link>
         <hr className=" border-border w-full self-center" />
         <Link
-          href="/"
+          href="/settings"
           className="flex items-center gap-4 p-2 rounded-lg hover:bg-slate-100"
         >
           <Image src="/settings.png" alt="" width={20} height={20} />

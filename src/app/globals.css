@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Add transition for theme change */
+/* Add a transition class for colors */
+.transition-colors-duration {
+  transition: color 0.3s, background-color 0.3s;
+}
 .scrollbar-hide::-webkit-scrollbar{
     display: none;
   }

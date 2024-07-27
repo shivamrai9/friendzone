@@ -14,7 +14,7 @@ const StoryList = () => {
                 onClick={() => open()}
               />
                 <form >
-                  <button className="text-xs bg-green-500 p-1 rounded-md text-white">
+                  <button className="text-xs bg-primary p-1 rounded-md text-white">
                     Send
                   </button>
                 </form>

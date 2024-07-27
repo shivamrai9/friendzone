@@ -24,7 +24,7 @@ const Navbar = () => {
         <div className="flex gap-6 text-gray-600">
           <Link href="/" className="flex items-center gap-2 text-white">
             <Image
-              src="/home.png"
+              src="/home1.png"
               alt="Homepage"
               width={16}
               height={16}
@@ -34,7 +34,7 @@ const Navbar = () => {
           </Link>
           <Link href="/" className="flex items-center gap-2 text-white">
             <Image
-              src="/stories.png"
+              src="/stories1.png"
               alt="Stories"
               width={16}
               height={16}
@@ -45,7 +45,7 @@ const Navbar = () => {
         </div>
         <div className='hidden xl:flex p-2 bg-slate-100 items-center rounded-xl'>
           <input type="text" placeholder="search..." className="bg-transparent outline-none" />
-          <Image src="/search.png" alt="" width={14} height={14} />
+          <Image src="/search1.png" alt="" width={14} height={14} />
         </div>
       </div>
       {/* RIGHT */}
@@ -56,10 +56,10 @@ const Navbar = () => {
         <ClerkLoaded>
           <SignedIn>
             <div className="cursor-pointer ">
-              <Image src="/people.png" alt="" width={24} height={24} />
+              <Image src="/groups1.png" alt="" width={24} height={24} />
             </div>
             <div className="cursor-pointer">
-              <Image src="/notifications.png" alt="" width={25} height={25} />
+              <Image src="/notifications1.png" alt="" width={25} height={25} />
             </div>
             <UserButton />
           </SignedIn>

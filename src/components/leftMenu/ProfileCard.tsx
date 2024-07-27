@@ -38,7 +38,7 @@ const ProfileCard = async () => {
                     </span>
                 </div>
                 <Link href={`/profile/`}>
-                    <button className="bg-green-500 text-white text-xs p-2 rounded-md">
+                    <button className="bg-primary text-white text-xs p-2 rounded-md">
                         My Profile
                     </button>
                 </Link>
