@@ -12,12 +12,13 @@ const AddPost = () => {
     "use server"
     // const desc = formData.get("desc") as string;
     // try{
-    //   prisma.post.create({
+    //   const res = await prisma.post.create({
     //     data:{
-    //       userId:"1",
+    //       userId:userId,
     //       desc: desc
     //     }
     //   })
+    //   console.log(res)
     // }catch(err){
     //   console.log(err)
     // }
@@ -49,7 +50,7 @@ const AddPost = () => {
               height={20}
               className="w-5 h-5 cursor-pointer self-end"
             />
-            {/* <AddPostButton /> */}
+            <AddPostButton />
           </div>
         </form>
         {/* POST OPTIONS */}

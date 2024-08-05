@@ -1,16 +1,55 @@
 "use client";
 
 import Image from "next/image";
+import { useOptimistic, useState } from "react";
+import { switchLike } from "@/lib/actions";
+import { useAuth } from "@clerk/nextjs";
 
-const PostInteraction = () => {
+const PostInteraction = ({
+  postId,
+  likes,
+  commentNumber,
+}: {
+  postId: number;
+  likes: string[];
+  commentNumber: number;
+}) => {
+
+  const { isLoaded, userId } = useAuth();
+  const [likeState, setLikeState] = useState({
+    likeCount: likes.length,
+    isLiked: userId ? likes.includes(userId) : false,
+  });
+
+  const [optimisticLike, switchOptimisticLike] = useOptimistic(
+    likeState,
+    (state, value) => {
+      return {
+        likeCount: state.isLiked ? state.likeCount - 1 : state.likeCount + 1,
+        isLiked: !state.isLiked,
+      };
+    }
+  );
+
+  const likeAction = async () => {
+    switchOptimisticLike("");
+    try {
+      switchLike(postId);
+      setLikeState((state) => ({
+        likeCount: state.isLiked ? state.likeCount - 1 : state.likeCount + 1,
+        isLiked: !state.isLiked,
+      }));
+    } catch (err) {}
+  };
+
   return (
     <div className="flex items-center justify-between text-sm my-4">
       <div className="flex gap-8">
         <div className="flex items-center gap-4 bg-slate-50 p-2 rounded-xl">
-          <form >
+          <form action={likeAction}>
             <button>
               <Image
-                src={"/like.png"}
+                src={optimisticLike.isLiked ? "/liked.png" : "/like.png"}
                 width={16}
                 height={16}
                 alt=""
@@ -20,7 +59,7 @@ const PostInteraction = () => {
           </form>
           <span className="text-gray-300">|</span>
           <span className="text-gray-500">
-            12
+          {optimisticLike.likeCount}
             <span className="hidden md:inline"> Likes</span>
           </span>
         </div>
@@ -34,7 +73,7 @@ const PostInteraction = () => {
           />
           <span className="text-gray-300">|</span>
           <span className="text-gray-500">
-            <span className="hidden md:inline"> Comments</span>
+          {commentNumber}<span className="hidden md:inline"> Comments</span>
           </span>
         </div>
       </div>

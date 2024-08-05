@@ -1,16 +1,26 @@
 "use client";
 
 
+import { updateProfile } from "@/lib/actions";
+import { User } from "@prisma/client";
 import Image from "next/image";
-import { useState } from "react";
+import { useActionState, useState } from "react";
+import { useRouter } from "next/navigation";
 import UpdateButton from "./UpdateButton";
 
-const UpdateUser = () => {
+const UpdateUser = ({ user }: { user: User }) => {
   const [open, setOpen] = useState(false);
+  const [cover, setCover] = useState<any>(false);
+
+  const [state, formAction] = useActionState(updateProfile,{success:false,error:false});
+
+  const router = useRouter();
 
   const handleClose = () => {
     setOpen(false);
+    state.success && router.refresh();
   };
+
   return (
     <div className="">
       <span
@@ -22,6 +32,9 @@ const UpdateUser = () => {
       {open && (
         <div className="absolute w-screen h-screen top-0 left-0 bg-black bg-opacity-65 flex items-center justify-center z-50 ">
           <form
+           action={(formData) =>
+            formAction({ formData, cover: cover?.secure_url || "" })
+          }
             className="p-12 bg-white rounded-lg shadow-md flex flex-col gap-2 w-full md:w-1/2 xl:w-1/3 relative"
           >
             {/* TITLE */}
@@ -40,7 +53,7 @@ const UpdateUser = () => {
                 </label>
                 <input
                   type="text"
-                  placeholder={"John"}
+                  placeholder={user.name || "John"}
                   className="ring-1 ring-gray-300 p-[13px] rounded-md text-sm"
                   name="name"
                 />
@@ -51,7 +64,7 @@ const UpdateUser = () => {
                 </label>
                 <input
                   type="text"
-                  placeholder={"Doe"}
+                  placeholder={user.surname || "Doe"}
                   className="ring-1 ring-gray-300 p-[13px] rounded-md text-sm"
                   name="surname"
                 />
@@ -63,7 +76,7 @@ const UpdateUser = () => {
                 </label>
                 <input
                   type="text"
-                  placeholder={"Life is beautiful..."}
+                  placeholder={user.description || "Life is beautiful..."}
                   className="ring-1 ring-gray-300 p-[13px] rounded-md text-sm"
                   name="description"
                 />
@@ -75,7 +88,7 @@ const UpdateUser = () => {
                 </label>
                 <input
                   type="text"
-                  placeholder={"New York"}
+                  placeholder={user.city || "New York"}
                   className="ring-1 ring-gray-300 p-[13px] rounded-md text-sm"
                   name="city"
                 />
@@ -88,7 +101,7 @@ const UpdateUser = () => {
                 </label>
                 <input
                   type="text"
-                  placeholder={"MIT"}
+                  placeholder={user.school || "MIT"}
                   className="ring-1 ring-gray-300 p-[13px] rounded-md text-sm"
                   name="school"
                 />
@@ -101,7 +114,7 @@ const UpdateUser = () => {
                 </label>
                 <input
                   type="text"
-                  placeholder={"Apple Inc."}
+                  placeholder={user.work || "Apple Inc."}
                   className="ring-1 ring-gray-300 p-[13px] rounded-md text-sm"
                   name="work"
                 />
@@ -114,15 +127,19 @@ const UpdateUser = () => {
                 </label>
                 <input
                   type="text"
-                  placeholder={"lama.dev"}
+                  placeholder={user.website || "FriendZone"}
                   className="ring-1 ring-gray-300 p-[13px] rounded-md text-sm"
                   name="website"
                 />
               </div>
             </div>
             <UpdateButton/>
+            {state.success && (
               <span className="text-green-500">Profile has been updated!</span>
+            )}
+            {state.error && (
               <span className="text-red-500">Something went wrong!</span>
+            )}
             <div
               className="absolute text-xl right-2 top-3 cursor-pointer"
               onClick={handleClose}

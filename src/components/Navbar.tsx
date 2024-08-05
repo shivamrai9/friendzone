@@ -45,7 +45,7 @@ const Navbar = () => {
         </div>
         <div className='hidden xl:flex p-2 bg-slate-100 items-center rounded-xl'>
           <input type="text" placeholder="search..." className="bg-transparent outline-none" />
-          <Image src="/search1.png" alt="" width={14} height={14} />
+          <Image src="/search.png" alt="" width={14} height={14} />
         </div>
       </div>
       {/* RIGHT */}
@@ -65,7 +65,7 @@ const Navbar = () => {
           </SignedIn>
           <SignedOut>
             <div className="flex items-center gap-2 text-sm">
-              <Image src="/login.png" alt="" width={20} height={20} />
+              <Image src="/like.png" alt="" width={20} height={20} />
               <Link href="/sign-in">Login/Register</Link>
             </div>
           </SignedOut>

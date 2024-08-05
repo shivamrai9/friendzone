@@ -1,8 +1,54 @@
 "use client";
 
+import { addComment } from "@/lib/actions";
+import { useUser } from "@clerk/nextjs";
+import { Comment, User } from "@prisma/client";
+import { useOptimistic, useState } from "react";
+type CommentWithUser = Comment & { user: User };
 import Image from "next/image";
 
-const CommentList = () => {
+const CommentList = ({comments,postId}:{comments: CommentWithUser[];postId: number;}) => {
+
+  const { user } = useUser();
+  const [commentState, setCommentState] = useState(comments);
+  const [desc, setDesc] = useState("");
+
+  const add = async () => {
+    if (!user || !desc) return;
+
+    addOptimisticComment({
+      id: Math.random(),
+      desc,
+      createdAt: new Date(Date.now()),
+      updatedAt: new Date(Date.now()),
+      userId: user.id,
+      postId: postId,
+      user: {
+        id: user.id,
+        username: "Sending Please Wait...",
+        avatar: user.imageUrl || "/noAvatar.png",
+        cover: "",
+        description: "",
+        name: "",
+        surname: "",
+        city: "",
+        work: "",
+        school: "",
+        website: "",
+        createdAt: new Date(Date.now()),
+      },
+    });
+    try {
+      const createdComment = await addComment(postId, desc);
+      setCommentState((prev) => [createdComment, ...prev]);
+    } catch (err) {}
+  };
+
+  const [optimisticComments, addOptimisticComment] = useOptimistic(
+    commentState,
+    (state, value: CommentWithUser) => [value, ...state]
+  );
+
   return (
     <>
         <div className="flex items-center gap-4">

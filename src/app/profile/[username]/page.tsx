@@ -2,10 +2,49 @@
 import Feed from "@/components/feed/Feed";
 import LeftMenu from "@/components/leftMenu/LeftMenu";
 import RightMenu from "@/components/rightMenu/RightMenu";
+import prisma from "@/lib/client";
+import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 
-const ProfilePage = async () => {
+const ProfilePage = async ({ params }: { params: { username: string } }) => {
+  const username = params.username;
 
+  const user = await prisma.user.findFirst({
+    where: {
+      username,
+    },
+    include: {
+      _count: {
+        select: {
+          followers: true,
+          followings: true,
+          posts: true,
+        },
+      },
+    },
+  });
+
+  if (!user) return notFound();
+
+  const { userId: currentUserId } = auth();
+
+  let isBlocked;
+
+  if (currentUserId) {
+    const res = await prisma.block.findFirst({
+      where: {
+        blockerId: user.id,
+        blockedId: currentUserId,
+      },
+    });
+
+    if (res) isBlocked = true;
+  } else {
+    isBlocked = false;
+  }
+
+  if (isBlocked) return notFound();
   return (
     <div className="flex gap-6 pt-6">
       <div className="hidden xl:block w-[20%]">
@@ -16,13 +55,13 @@ const ProfilePage = async () => {
           <div className="flex flex-col items-center justify-center">
             <div className="w-full h-64 relative">
               <Image
-                src={"/noAvatar.png"}
+                src={user.cover || "/noAvatar.png"}
                 alt=""
                 fill
                 className="rounded-md object-cover"
               />
               <Image
-                src={"/noAvatar.png"}
+                src={user.avatar || "/noAvatar.png"}
                 alt=""
                 width={128}
                 height={128}
@@ -30,20 +69,22 @@ const ProfilePage = async () => {
               />
             </div>
             <h1 className="mt-20 mb-4 text-2xl font-medium">
-                shivam rai
+            {user.name && user.surname
+                ? user.name + " " + user.surname
+                : user.username}
             </h1>
             <div className="flex items-center justify-center gap-12 mb-4">
               <div className="flex flex-col items-center">
-                <span className="font-medium">12</span>
-                <span className="text-sm">Posts</span>
+              <span className="font-medium">{user._count.posts}</span>
+              <span className="text-sm">Posts</span>
               </div>
               <div className="flex flex-col items-center">
-                <span className="font-medium">921</span>
-                <span className="text-sm">Followers</span>
+              <span className="font-medium">{user._count.followers}</span>
+              <span className="text-sm">Followers</span>
               </div>
               <div className="flex flex-col items-center">
-                <span className="font-medium">08</span>
-                <span className="text-sm">Following</span>
+              <span className="font-medium">{user._count.followings}</span>
+              <span className="text-sm">Following</span>
               </div>
             </div>
           </div>
@@ -51,7 +92,7 @@ const ProfilePage = async () => {
         </div>
       </div>
       <div className="hidden lg:block w-[30%]">
-        <RightMenu  />
+        <RightMenu  user={user} />
       </div>
     </div>
   );
