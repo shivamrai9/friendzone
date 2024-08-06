@@ -3,12 +3,17 @@
 import { addComment } from "@/lib/actions";
 import { useUser } from "@clerk/nextjs";
 import { Comment, User } from "@prisma/client";
+import Image from "next/image";
 import { useOptimistic, useState } from "react";
 type CommentWithUser = Comment & { user: User };
-import Image from "next/image";
 
-const CommentList = ({comments,postId}:{comments: CommentWithUser[];postId: number;}) => {
-
+const CommentList = ({
+  comments,
+  postId,
+}: {
+  comments: CommentWithUser[];
+  postId: number;
+}) => {
   const { user } = useUser();
   const [commentState, setCommentState] = useState(comments);
   const [desc, setDesc] = useState("");
@@ -48,24 +53,26 @@ const CommentList = ({comments,postId}:{comments: CommentWithUser[];postId: numb
     commentState,
     (state, value: CommentWithUser) => [value, ...state]
   );
-
   return (
     <>
+      {user && (
         <div className="flex items-center gap-4">
           <Image
-            src={"/noAvatar.png"}
+            src={user.imageUrl || "noAvatar.png"}
             alt=""
             width={32}
             height={32}
             className="w-8 h-8 rounded-full"
           />
           <form
-            className="flex-1 flex items-center justify-between bg-primary-light rounded-xl text-sm px-6 py-2 w-full"
+            action={add}
+            className="flex-1 flex items-center justify-between bg-slate-100 rounded-xl text-sm px-6 py-2 w-full"
           >
             <input
               type="text"
               placeholder="Write a comment..."
               className="bg-transparent outline-none flex-1"
+              onChange={(e) => setDesc(e.target.value)}
             />
             <Image
               src="/emoji.png"
@@ -76,12 +83,14 @@ const CommentList = ({comments,postId}:{comments: CommentWithUser[];postId: numb
             />
           </form>
         </div>
+      )}
       <div className="">
         {/* COMMENT */}
-          <div className="flex gap-4 justify-between mt-6" >
+        {optimisticComments.map((comment) => (
+          <div className="flex gap-4 justify-between mt-6" key={comment.id}>
             {/* AVATAR */}
             <Image
-              src={"/noAvatar.png"}
+              src={comment.user.avatar || "noAvatar.png"}
               alt=""
               width={40}
               height={40}
@@ -90,9 +99,11 @@ const CommentList = ({comments,postId}:{comments: CommentWithUser[];postId: numb
             {/* DESC */}
             <div className="flex flex-col gap-2 flex-1">
               <span className="font-medium">
-                shivam rai
+                {comment.user.name && comment.user.surname
+                  ? comment.user.name + " " + comment.user.surname
+                  : comment.user.username}
               </span>
-              <p>shivamshjkjhs</p>
+              <p>{comment.desc}</p>
               <div className="flex items-center gap-8 text-xs text-gray-500 mt-2">
                 <div className="flex items-center gap-4">
                   <Image
@@ -117,6 +128,7 @@ const CommentList = ({comments,postId}:{comments: CommentWithUser[];postId: numb
               className="cursor-pointer w-4 h-4"
             ></Image>
           </div>
+        ))}
       </div>
     </>
   );
